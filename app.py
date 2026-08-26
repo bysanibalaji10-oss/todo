@@ -1,5 +1,4 @@
 from datetime import datetime
-from turtle import title
 from flask import Flask, redirect, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 
@@ -54,7 +53,8 @@ def show_todos():
     todos = Todo.query.all()
     return render_template("show.html", todos=todos)
 
+with app.app_context():
+    db.create_all()
+
 if __name__ == "__main__":
-    with app.app_context():
-        db.create_all()
     app.run(debug=True, port=8000)
